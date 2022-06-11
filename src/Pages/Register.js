@@ -21,6 +21,7 @@ import { default as data } from "./mock.json";
 import Event from "../Components/Event";
 import usePagination from "../Components/Pagination";
 import { FormControl } from "@mui/material";
+import { FormSection } from "redux-form";
 
 const Login = () => {
   const defaultValues = {
@@ -29,6 +30,7 @@ const Login = () => {
     password: "",
   };
 
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,9 +40,20 @@ const Login = () => {
     });
   };
 
+  const handleClick = () => {
+    navigate("/");
+  };
+
+  const [isLogged, setLoginStatus] = useState(false);
+
   const handleRegistration = async () => {
     await Auth.register(formValues);
+    localStorage.setItem("email", formValues.email);
+    localStorage.setItem("password", formValues.password);
+    setLoginStatus(true);
+    localStorage.setItem("isLogged", true);
     console.log("worked");
+    navigate("/");
   };
 
   return (
@@ -69,6 +82,9 @@ const Login = () => {
             >
               LOGO
             </Typography>
+            <Button color="inherit" onClick={handleClick}>
+              Inapoi
+            </Button>
           </Toolbar>
         </AppBar>
         <FormControl>

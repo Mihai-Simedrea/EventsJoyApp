@@ -11,9 +11,7 @@ import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
-
-// Mock data
-import { default as data } from "./mock.json";
+import Auth from "../Services/auth";
 
 // Components
 import Event from "../Components/Event";
@@ -33,6 +31,39 @@ const Layout = () => {
 
   const handleRegister = () => {
     navigate("/register");
+  };
+
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const events = await Auth.getEvents();
+      console.log(events);
+      setEvents(events);
+    };
+
+    fetchData().catch(console.error);
+  }, []);
+
+  const isLogged = localStorage.getItem("isLogged");
+  const currentUser = localStorage.getItem("email");
+
+  // Filter
+
+  const [filter, setFilter] = useState(false);
+  const [btn1, setBtn1] = useState("inherit");
+  const [btn2, setBtn2] = useState("inherit");
+
+  const showAll = () => {
+    setFilter(false);
+    setBtn1("primary");
+    setBtn2("inherit");
+  };
+
+  const showMyEvents = () => {
+    setFilter(true);
+    setBtn1("inherit");
+    setBtn2("primary");
   };
 
   return (
@@ -61,7 +92,7 @@ const Layout = () => {
             >
               LOGO
             </Typography>
-            {signedIn == false && (
+            {(isLogged == "false" || isLogged == null) && (
               <div>
                 {" "}
                 <Button color="inherit" onClick={handleRegister}>
@@ -72,14 +103,20 @@ const Layout = () => {
                 </Button>
               </div>
             )}
-            {signedIn == true && (
-              <Button color="inherit" onClick={handleClick}>
+            {isLogged == "true" && (
+              <Button background="inherit" onClick={handleClick}>
                 Create event
               </Button>
             )}
           </Toolbar>
         </AppBar>
       </Box>
+      <Button color={btn1} onClick={showAll}>
+        Show All
+      </Button>
+      <Button color={btn2} onClick={showMyEvents}>
+        Show my events
+      </Button>
 
       <br />
 
@@ -91,16 +128,34 @@ const Layout = () => {
           justifyContent="center"
           style={{ minHeight: "100vh" }}
         >
-          {data.map((d) => (
-            <Grid key={d.id} item xs={12} sm={6} md={4}>
-              {" "}
-              <Event
-                id={d.id}
-                title={d.title}
-                description={d.description}
-              ></Event>{" "}
-            </Grid>
-          ))}
+          {filter == false &&
+            events.map((d) => (
+              <Grid key={d.id} item xs={12} sm={6} md={4}>
+                {" "}
+                <Event
+                  id={d.id}
+                  title={d.title}
+                  description={d.description}
+                  owner={d.owner}
+                ></Event>{" "}
+              </Grid>
+            ))}
+
+          {filter == true &&
+            events.map((d) => (
+              <>
+                {d.owner == currentUser && (
+                  <Grid key={d.id} item xs={12} sm={6} md={4}>
+                    <Event
+                      id={d.id}
+                      title={d.title}
+                      description={d.description}
+                      owner={d.owner}
+                    ></Event>
+                  </Grid>
+                )}
+              </>
+            ))}
         </Grid>
       </div>
     </>

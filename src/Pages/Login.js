@@ -28,9 +28,17 @@ const Login = () => {
     password: "",
   };
 
+  const navigate = useNavigate();
+  const isLogged = localStorage.getItem("isLogged");
+
+  const handleClick = () => {
+    navigate("/");
+  };
+
   const handleLogin = async () => {
     await Auth.login(formValues);
     console.log("worked");
+    navigate("/");
   };
 
   const [formValues, setFormValues] = useState(defaultValues);
@@ -45,54 +53,59 @@ const Login = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" color="inherit">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1 }}
-            >
-              LOGO
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box>
+      {isLogged == "true" && navigate("/")}
+      <>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static" color="inherit">
+            <Toolbar>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                variant="h6"
+                component="div"
+                sx={{ flexGrow: 1 }}
+              >
+                LOGO
+              </Typography>
+              <Button color="inherit" onClick={handleClick}>
+                Inapoi
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </Box>
+        <FormControl>
+          <TextField
+            id="email-input"
+            label="Email"
+            name="email"
+            type="text"
+            value={formValues.email}
+            onChange={handleInputChange}
+          />
 
-      <FormControl>
-        <TextField
-          id="email-input"
-          label="Email"
-          name="email"
-          type="text"
-          value={formValues.email}
-          onChange={handleInputChange}
-        />
-
-        <TextField
-          id="password-input"
-          label="Password"
-          name="password"
-          type="password"
-          value={formValues.password}
-          onChange={handleInputChange}
-        />
-        <Button onClick={handleLogin}>Login</Button>
-      </FormControl>
+          <TextField
+            id="password-input"
+            label="Password"
+            name="password"
+            type="password"
+            value={formValues.password}
+            onChange={handleInputChange}
+          />
+          <Button onClick={handleLogin}>Login</Button>
+        </FormControl>
+      </>
     </>
   );
 };

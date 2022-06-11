@@ -16,15 +16,47 @@ import { Card } from "@mui/material";
 import { CardMedia } from "@mui/material";
 import { CardContent } from "@mui/material";
 import { CardActions } from "@mui/material";
+import { useParams } from "react-router-dom";
 
-// Mock data
-import { default as data } from "./mock.json";
+import Auth from "../Services/auth";
 
 const EventPage = (props) => {
+  const Categories = {
+    Art: "0",
+    Sport: "1",
+    None: "2",
+  };
+
   const navigate = useNavigate();
+
+  let { id } = useParams();
 
   const handleClick = (props) => {
     navigate("/");
+  };
+
+  const [event, setEvent] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const event = await Auth.getEventById(id);
+      setEvent(event);
+      console.log(event);
+    };
+
+    fetchData().catch(console.error);
+  }, []);
+
+  let category = "";
+  for (const key in Categories) {
+    console.log(Categories[key]);
+    if (Categories[key] == event.category) category = key;
+  }
+
+  const isLogged = localStorage.getItem("isLogged");
+
+  const goRegister = () => {
+    navigate("/register");
   };
 
   return (
@@ -64,33 +96,33 @@ const EventPage = (props) => {
           <CardMedia
             component="img"
             height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
-            alt="green iguana"
+            image={event.banner}
+            alt="no banner"
           />
           <CardContent alignItems="center">
-            <Typography gutterBottom variant="h5" component="div">
-              {props.title}
-            </Typography>
             <Typography variant="h6" color="text.secondary">
-              {props.description}
+              {event.description}
             </Typography>
             <br></br>
             <br></br>
             <Typography variant="h6" color="text.secondary">
-              {"Tipul everimentului: " + props.description}
+              {"Tipul everimentului: " + category}
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {"Costuri si cerinte: " + props.cost}
+              {"Costul everimentului: " + event.cost}
             </Typography>
             <Typography variant="h6" color="text.secondary">
-              {"Contact: " + props.phonenumber + " " + props.facebook}
-            </Typography>
-            <Typography variant="h6" color="text.secondary">
-              {"Link-ul oficial al site-ului: " + props.link}
+              {"Cerinte: " + event.requirements}
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="medium">Get a ticket</Button>
+            {isLogged == "true" && <Button size="medium">Get a ticket</Button>}
+            {isLogged == "false" ||
+              (isLogged == null && (
+                <Button size="medium" onClick={goRegister}>
+                  Get a ticket
+                </Button>
+              ))}
           </CardActions>
         </Card>
       </Box>

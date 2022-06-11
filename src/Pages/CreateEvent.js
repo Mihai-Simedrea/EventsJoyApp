@@ -13,52 +13,49 @@ import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import { Select } from "@mui/material";
 import { MenuItem } from "@mui/material";
-import axios from "axios";
+import Auth from "../Services/auth";
+import { useNavigate } from "react-router-dom";
 
 const CreateEvent = () => {
   const defaultValues = {
-    category: "",
-    date: "",
-    location: "",
-    image: "",
+    category: 0,
+    banner: "",
     description: "",
+    requirements: "",
     cost: "",
-    phonenumber: "",
-    facebook: "",
-    link: "",
+    email: "",
+    password: "",
+    owner: "",
   };
 
   const [age, setAge] = React.useState("");
+  const thisEmail = localStorage.getItem("email");
+  const thisPassword = localStorage.getItem("password");
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
 
   const [formValues, setFormValues] = useState(defaultValues);
-  const handleInputChange = (e) => {
+  const handleInputChange = (e, overrideName) => {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
-      [name]: value,
+      [overrideName || name]: value,
     });
   };
 
+  const handleClick = () => {
+    navigate("/");
+  };
+
   const handleSubmit = (event) => {
-    /*
-    axios.post('/', {
-        firstName: 'Fred',
-        lastName: 'Flintstone'
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-*/
-    // create a json file
-    // create a PUT
-    // data will be in db
+    formValues.email = thisEmail;
+    formValues.password = thisPassword;
+    formValues.owner = formValues.email;
+    let data = Auth.postEvent(formValues);
+    navigate("/");
     event.preventDefault();
     console.log(formValues);
   };
@@ -89,6 +86,9 @@ const CreateEvent = () => {
             >
               LOGO
             </Typography>
+            <Button color="inherit" onClick={handleClick}>
+              Inapoi
+            </Button>
           </Toolbar>
         </AppBar>
       </Box>
@@ -117,11 +117,11 @@ const CreateEvent = () => {
               id="category-input"
               value={formValues.category}
               label="Categorie"
-              onChange={handleInputChange}
+              onChange={(event) => handleInputChange(event, "category")}
             >
               <MenuItem value={0}>Art</MenuItem>
               <MenuItem value={1}>Sport</MenuItem>
-              <MenuItem value={2}>...</MenuItem>
+              <MenuItem value={2}>None</MenuItem>
             </Select>
 
             <Button variant="contained" component="label">
@@ -140,40 +140,23 @@ const CreateEvent = () => {
             />
 
             <TextField
-              id="cost-input"
-              name="cost"
-              label="Costuri si cerinte"
+              id="requirements-input"
+              name="requirements"
+              label="Cerinte"
               type="text"
-              value={formValues.cost}
+              value={formValues.requirements}
               onChange={handleInputChange}
               multiline
             />
 
             <TextField
-              id="phonenumber-input"
-              label="Phone number"
-              name="phonenumber"
+              id="cost-input"
+              name="cost"
+              label="Costuri"
               type="text"
-              value={formValues.phonenumber}
+              value={formValues.cost}
               onChange={handleInputChange}
-            />
-
-            <TextField
-              id="facebook-input"
-              label="Profilul de Facebook"
-              name="facebook"
-              type="text"
-              value={formValues.facebook}
-              onChange={handleInputChange}
-            />
-
-            <TextField
-              id="link-input"
-              label="Link catre site-ul oficial"
-              name="link"
-              type="text"
-              value={formValues.link}
-              onChange={handleInputChange}
+              multiline
             />
           </FormControl>
 
