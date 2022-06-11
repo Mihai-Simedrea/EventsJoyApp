@@ -3,19 +3,17 @@ import axios from "axios";
 import { useState } from "react";
 
 class Auth {
-  registerPostUrl;
-  loginPostUrl;
+  backendUrl;
 
-  constructor(registerPostUrl, loginPostUrl) {
-    this.registerPostUrl = registerPostUrl;
-    this.loginPostUrl = loginPostUrl;
+  constructor(backendUrl) {
+    this.backendUrl = backendUrl;
   }
 
   register = (data) => {
     axios
-      .post(this.registerPostUrl, {
+      .post(`${this.backendUrl}/registration`, 
         data,
-      })
+      )
       .then((response) => {
         console.log(response);
       });
@@ -23,9 +21,9 @@ class Auth {
 
   login = (data) => {
     axios
-      .post(this.loginPostUrl, {
+      .post(`${this.backendUrl}/authentication`, 
         data,
-      })
+      )
       .then((response) => {
         console.log(response);
       });
@@ -51,4 +49,4 @@ class Auth {
 //       });
 //   }
 
-export default new Auth("", "");
+export default new Auth(process.env.REACT_APP_BACKEND_URL);

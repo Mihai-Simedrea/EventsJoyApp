@@ -24,7 +24,7 @@ import Auth from "../Services/auth";
 
 const Login = () => {
   const defaultValues = {
-    name: "",
+    email: "",
     password: "",
   };
 
@@ -34,6 +34,7 @@ const Login = () => {
   };
 
   const [formValues, setFormValues] = useState(defaultValues);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -74,11 +75,11 @@ const Login = () => {
 
       <FormControl>
         <TextField
-          id="name-input"
-          label="Name"
-          name="name"
+          id="email-input"
+          label="Email"
+          name="email"
           type="text"
-          value={formValues.name}
+          value={formValues.email}
           onChange={handleInputChange}
         />
 
