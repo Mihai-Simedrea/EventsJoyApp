@@ -17,9 +17,9 @@ export default function Event(props) {
         <CardActionArea>
           <CardMedia
             component="img"
-            alt="green iguana"
+            alt="text"
             height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image={require("./index.jpeg")}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

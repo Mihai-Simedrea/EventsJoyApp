@@ -30,7 +30,7 @@ const EventPage = (props) => {
     Boardgame_party: "5",
     Gaming: "6",
   };
- 
+
   const navigate = useNavigate();
 
   let { id } = useParams();
@@ -61,6 +61,47 @@ const EventPage = (props) => {
 
   const goRegister = () => {
     navigate("/register");
+  };
+
+  const ticketData = {
+    eventId: 0,
+    email: "",
+    password: "",
+  };
+
+  const handleTicket = async () => {
+    var uuid = require("uuid");
+    var secretcode = uuid.v4();
+
+    ticketData.eventId = event.id;
+    ticketData.email = localStorage.getItem("email");
+    ticketData.password = localStorage.getItem("password");
+    console.log(ticketData);
+    console.log(event.id);
+
+    const result = await Auth.postTicket(ticketData);
+    navigate("/");
+
+    //Auth.postTicket(ticketData);
+    // id, eventId, secretcode, state (enum), user (object), event (object)
+    /*
+    const url = "http://localhost:3001/userToken";
+    let qr = generateQR(url);
+    qr = qr.replace(/^data:image\/(png|jpg);base64,/, "");
+    let mail = {
+      from: "jdasjdsal",
+      to: "florin.mischie@student.upt.ro",
+      subject: "Event attendance pass",
+      attachments: [
+        {
+          filename: "Ticket.jpg",
+          content: qr,
+          encoding: "base64",
+        },
+      ],
+      text: "Send email",
+    };
+    */
   };
 
   return (
@@ -120,7 +161,11 @@ const EventPage = (props) => {
             </Typography>
           </CardContent>
           <CardActions>
-            {isLogged == "true" && <Button size="medium">Get a ticket</Button>}
+            {isLogged == "true" && (
+              <Button size="medium" onClick={handleTicket}>
+                Get a ticket
+              </Button>
+            )}
             {isLogged == "false" ||
               (isLogged == null && (
                 <Button size="medium" onClick={goRegister}>

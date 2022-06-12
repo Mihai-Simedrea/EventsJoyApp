@@ -49,6 +49,7 @@ const Login = () => {
     await Auth.register(formValues);
     localStorage.setItem("email", formValues.email);
     localStorage.setItem("password", formValues.password);
+    localStorage.setItem("name", formValues.name);
     setLoginStatus(true);
     localStorage.setItem("isLogged", true);
     console.log("worked");
@@ -57,8 +58,7 @@ const Login = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}
-      >
+      <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color="inherit">
           <Toolbar>
             <IconButton
@@ -88,52 +88,57 @@ const Login = () => {
           </Toolbar>
         </AppBar>
         <Box
-         style={{
-          height:"100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        <FormControl>
-          <TextField
-            id="email-input"
-            label="Email"
-            name="email"
-            type="text"
-            value={formValues.email}
-            onChange={handleInputChange}
-          />
-
-          <TextField
           style={{
-            marginTop:"1rem"
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-            id="name-input"
-            label="Nume"
-            name="name"
-            type="text"
-            value={formValues.name}
-            onChange={handleInputChange}
-          />
+        >
+          <FormControl>
+            <TextField
+              id="email-input"
+              label="Email"
+              name="email"
+              type="text"
+              value={formValues.email}
+              onChange={handleInputChange}
+            />
 
-          <TextField
-          style={{
-            marginTop:"1rem"
-          }}
-            id="password-input"
-            label="Parola"
-            name="password"
-            type="password"
-            value={formValues.password}
-            onChange={handleInputChange}
-          />
-          <Button onClick={handleRegistration}
-           style={{
-            background: "dodgerblue",
-            color:"white",
-            marginTop:"1rem"
-          }}>Register</Button>
-        </FormControl>
+            <TextField
+              style={{
+                marginTop: "1rem",
+              }}
+              id="name-input"
+              label="Nume"
+              name="name"
+              type="text"
+              value={formValues.name}
+              onChange={handleInputChange}
+            />
+
+            <TextField
+              style={{
+                marginTop: "1rem",
+              }}
+              id="password-input"
+              label="Parola"
+              name="password"
+              type="password"
+              value={formValues.password}
+              onChange={handleInputChange}
+            />
+            <Button
+              onClick={handleRegistration}
+              style={{
+                background: "dodgerblue",
+                color: "white",
+                marginTop: "1rem",
+              }}
+            >
+              Register
+            </Button>
+          </FormControl>
         </Box>
       </Box>
     </>

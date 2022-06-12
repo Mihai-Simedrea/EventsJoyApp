@@ -21,6 +21,7 @@ import { default as data } from "./mock.json";
 import Event from "../Components/Event";
 import usePagination from "../Components/Pagination";
 import Auth from "../Services/auth";
+import { FormatOverlineSharp } from "@mui/icons-material";
 
 const Login = () => {
   const defaultValues = {
@@ -37,6 +38,8 @@ const Login = () => {
 
   const handleLogin = async () => {
     await Auth.login(formValues);
+    localStorage.setItem("email", formValues.email);
+    localStorage.setItem("password", formValues.password);
     console.log("worked");
     navigate("/");
   };
@@ -86,41 +89,45 @@ const Login = () => {
           </AppBar>
         </Box>
         <Box
-        style={{
-          height:"100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        <FormControl>
-          <TextField
-         
-            id="email-input"
-            label="Email"
-            name="email"
-            type="text"
-            value={formValues.email}
-            onChange={handleInputChange}
-          />
-
-          <TextField
           style={{
-            marginTop:"1rem"
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-            id="password-input"
-            label="Password"
-            name="password"
-            type="password"
-            value={formValues.password}
-            onChange={handleInputChange}
-          />
-          <Button onClick={handleLogin}
-           style={{
-            marginTop:"1rem",
-            background:"dodgerblue",
-            color:"white"
-          }}>Login</Button>
-        </FormControl>
+        >
+          <FormControl>
+            <TextField
+              id="email-input"
+              label="Email"
+              name="email"
+              type="text"
+              value={formValues.email}
+              onChange={handleInputChange}
+            />
+
+            <TextField
+              style={{
+                marginTop: "1rem",
+              }}
+              id="password-input"
+              label="Password"
+              name="password"
+              type="password"
+              value={formValues.password}
+              onChange={handleInputChange}
+            />
+            <Button
+              onClick={handleLogin}
+              style={{
+                marginTop: "1rem",
+                background: "dodgerblue",
+                color: "white",
+              }}
+            >
+              Login
+            </Button>
+          </FormControl>
         </Box>
       </>
     </>
