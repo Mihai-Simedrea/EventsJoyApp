@@ -13,7 +13,7 @@ export default function Event(props) {
 
   return (
     <Link to={"/event/" + props.id}>
-      <Card sx={{ maxWidth: 354 }}>
+      <Card sx={{ maxWidth: 354, marginLeft: 'auto', marginRight: 'auto'}}>
         <CardActionArea>
           <CardMedia
             component="img"
