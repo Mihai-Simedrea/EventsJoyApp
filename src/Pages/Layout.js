@@ -60,7 +60,7 @@ const Layout = () => {
   // Filter
 
   const [filter, setFilter] = useState(false);
-  const [btn1, setBtn1] = useState("inherit");
+  const [btn1, setBtn1] = useState("primary");
   const [btn2, setBtn2] = useState("inherit");
 
   const showAll = () => {
