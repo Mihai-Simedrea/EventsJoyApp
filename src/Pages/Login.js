@@ -85,8 +85,16 @@ const Login = () => {
             </Toolbar>
           </AppBar>
         </Box>
+        <Box
+        style={{
+          height:"100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
         <FormControl>
           <TextField
+         
             id="email-input"
             label="Email"
             name="email"
@@ -96,6 +104,9 @@ const Login = () => {
           />
 
           <TextField
+          style={{
+            marginTop:"1rem"
+          }}
             id="password-input"
             label="Password"
             name="password"
@@ -103,8 +114,14 @@ const Login = () => {
             value={formValues.password}
             onChange={handleInputChange}
           />
-          <Button onClick={handleLogin}>Login</Button>
+          <Button onClick={handleLogin}
+           style={{
+            marginTop:"1rem",
+            background:"dodgerblue",
+            color:"white"
+          }}>Login</Button>
         </FormControl>
+        </Box>
       </>
     </>
   );

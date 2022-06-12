@@ -21,7 +21,6 @@ import { default as data } from "./mock.json";
 import Event from "../Components/Event";
 import usePagination from "../Components/Pagination";
 import { FormControl } from "@mui/material";
-import { FormSection } from "redux-form";
 
 const Login = () => {
   const defaultValues = {
@@ -58,7 +57,8 @@ const Login = () => {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1 }}
+      >
         <AppBar position="static" color="inherit">
           <Toolbar>
             <IconButton
@@ -87,6 +87,13 @@ const Login = () => {
             </Button>
           </Toolbar>
         </AppBar>
+        <Box
+         style={{
+          height:"100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}>
         <FormControl>
           <TextField
             id="email-input"
@@ -98,6 +105,9 @@ const Login = () => {
           />
 
           <TextField
+          style={{
+            marginTop:"1rem"
+          }}
             id="name-input"
             label="Nume"
             name="name"
@@ -107,6 +117,9 @@ const Login = () => {
           />
 
           <TextField
+          style={{
+            marginTop:"1rem"
+          }}
             id="password-input"
             label="Parola"
             name="password"
@@ -114,8 +127,14 @@ const Login = () => {
             value={formValues.password}
             onChange={handleInputChange}
           />
-          <Button onClick={handleRegistration}>Register</Button>
+          <Button onClick={handleRegistration}
+           style={{
+            background: "dodgerblue",
+            color:"white",
+            marginTop:"1rem"
+          }}>Register</Button>
         </FormControl>
+        </Box>
       </Box>
     </>
   );

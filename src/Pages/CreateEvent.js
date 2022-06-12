@@ -94,8 +94,15 @@ const CreateEvent = () => {
       </Box>
 
       <br />
-
+      <Box
+       style={{
+        height:"50vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
       <Grid spacing={2}>
+        
         <div
           style={{
             width: 300,
@@ -113,23 +120,35 @@ const CreateEvent = () => {
             <InputLabel id="category-input-label">Category</InputLabel>
 
             <Select
+            
               labelId="category-input-label"
               id="category-input"
               value={formValues.category}
               label="Categorie"
               onChange={(event) => handleInputChange(event, "category")}
             >
-              <MenuItem value={0}>Art</MenuItem>
+              <MenuItem value={0}>Petrecere Acasa</MenuItem>
               <MenuItem value={1}>Sport</MenuItem>
-              <MenuItem value={2}>None</MenuItem>
+              <MenuItem value={2}>Arta</MenuItem>
+              <MenuItem value={3}>Petrecere in pub</MenuItem>
+              <MenuItem value={4}>Petrecere in club</MenuItem>
+              <MenuItem value={5}>Boardgame party</MenuItem>
+              <MenuItem value={6}>Gaming</MenuItem>
             </Select>
 
-            <Button variant="contained" component="label">
-              Drop a banner
+            <Button variant="contained" component="label"
+             style={{
+              marginTop:"1rem",
+              background:"gray"
+            }}>
+              Choose a banner
               <input type="file" hidden />
             </Button>
 
             <TextField
+             style={{
+              marginTop:"1rem"
+            }}
               id="description-input"
               name="description"
               label="Descriere"
@@ -140,6 +159,9 @@ const CreateEvent = () => {
             />
 
             <TextField
+             style={{
+              marginTop:"1rem"
+            }}
               id="requirements-input"
               name="requirements"
               label="Cerinte"
@@ -150,6 +172,9 @@ const CreateEvent = () => {
             />
 
             <TextField
+             style={{
+              marginTop:"1rem"
+            }}
               id="cost-input"
               name="cost"
               label="Costuri"
@@ -160,11 +185,16 @@ const CreateEvent = () => {
             />
           </FormControl>
 
-          <Button color="inherit" onClick={handleSubmit}>
+          <Button color="inherit" onClick={handleSubmit}
+           style={{
+            marginTop:"1rem",
+            background:"dodgerblue"
+          }}>
             Inregistreaza-ti everimentul
           </Button>
         </div>
       </Grid>
+      </Box>
     </>
   );
 };

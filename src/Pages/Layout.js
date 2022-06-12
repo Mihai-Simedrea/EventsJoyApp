@@ -71,15 +71,12 @@ const Layout = () => {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" color="inherit">
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
+          <Button color={btn1} onClick={showAll}>
+        Show All
+      </Button>
+      <Button color={btn2} onClick={showMyEvents}>
+        Show my events
+      </Button>
             <Typography
               style={{
                 display: "flex",
@@ -108,15 +105,11 @@ const Layout = () => {
                 Create event
               </Button>
             )}
+       
           </Toolbar>
         </AppBar>
       </Box>
-      <Button color={btn1} onClick={showAll}>
-        Show All
-      </Button>
-      <Button color={btn2} onClick={showMyEvents}>
-        Show my events
-      </Button>
+    
 
       <br />
 

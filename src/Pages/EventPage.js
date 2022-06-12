@@ -22,11 +22,15 @@ import Auth from "../Services/auth";
 
 const EventPage = (props) => {
   const Categories = {
-    Art: "0",
+    Petrecere_Acasa: "0",
     Sport: "1",
-    None: "2",
+    Arta: "2",
+    Petrecere_in_pub: "3",
+    Petrecere_in_club: "4",
+    Boardgame_party: "5",
+    Gaming: "6",
   };
-
+ 
   const navigate = useNavigate();
 
   let { id } = useParams();
