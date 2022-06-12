@@ -13,7 +13,7 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Auth from "../Services/auth";
-
+import { LogOut } from "./EventPage";
 // Mock data
 import { default as data } from "./mock.json";
 
@@ -30,6 +30,16 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
+
+  const logOut = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    localStorage.removeItem("isLogged");
+    localStorage.removeItem("name");
+    navigate("/");
+    window.location.reload();
+  }
+
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -81,6 +91,9 @@ const Login = () => {
               sx={{ flexGrow: 1 }}
             >
                <img src="/Asset 1.png" alt="sdagasdgasd" height={50} width={50}></img>
+               {(isLogged == "true") &&<Button color="inherit" onClick={logOut}>
+              Log Out
+              </Button>}
             </Typography>
             <Button color="inherit" onClick={handleClick}>
               Inapoi

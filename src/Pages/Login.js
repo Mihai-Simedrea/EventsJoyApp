@@ -13,7 +13,7 @@ import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { FormControl } from "@mui/material";
-
+import { LogOut } from "./EventPage";
 // Mock data
 import { default as data } from "./mock.json";
 
@@ -30,17 +30,27 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
-  const isLogged = localStorage.getItem("isLogged");
+  const [isLogged, setIsLogged] = useState(localStorage.getItem("isLogged"));
 
   const handleClick = () => {
     navigate("/");
   };
 
+  const logOut = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    localStorage.removeItem("isLogged");
+    localStorage.removeItem("name");
+    navigate("/");
+    window.location.reload();
+  }
+
   const handleLogin = async () => {
     await Auth.login(formValues);
     localStorage.setItem("email", formValues.email);
     localStorage.setItem("password", formValues.password);
-    console.log("worked");
+    localStorage.setItem("isLogged", "true");
+    setIsLogged(true);
     navigate("/");
   };
 
@@ -82,6 +92,9 @@ const Login = () => {
               >
                  <img src="/Asset 1.png" alt="sdagasdgasd" height={50} width={50}></img>
               </Typography>
+              {(isLogged == "true") &&<Button color="inherit" onClick={logOut}>
+              Log Out
+              </Button>}
               <Button color="inherit" onClick={handleClick}>
                 Inapoi
               </Button>

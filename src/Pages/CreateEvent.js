@@ -15,7 +15,8 @@ import { Select } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import Auth from "../Services/auth";
 import { useNavigate } from "react-router-dom";
-
+import { LogOut } from "./EventPage";
+import { isLogged } from "./EventPage";
 const CreateEvent = () => {
   const defaultValues = {
     category: 0,
@@ -32,6 +33,15 @@ const CreateEvent = () => {
   const thisEmail = localStorage.getItem("email");
   const thisPassword = localStorage.getItem("password");
   const navigate = useNavigate();
+
+  const logOut = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    localStorage.removeItem("isLogged");
+    localStorage.removeItem("name");
+    navigate("/");
+    window.location.reload();
+  }
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -86,6 +96,9 @@ const CreateEvent = () => {
             >
                <img src="/Asset 1.png" alt="sdagasdgasd" height={50} width={50}></img>
             </Typography>
+            {(isLogged == "true") &&<Button color="inherit" onClick={logOut}>
+              Log Out
+              </Button>}
             <Button color="inherit" onClick={handleClick}>
               Inapoi
             </Button>

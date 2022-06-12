@@ -17,8 +17,9 @@ import { CardMedia } from "@mui/material";
 import { CardContent } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { useParams } from "react-router-dom";
-
 import Auth from "../Services/auth";
+
+export const isLogged = localStorage.getItem("isLogged");
 
 const EventPage = (props) => {
   const Categories = {
@@ -32,6 +33,16 @@ const EventPage = (props) => {
   };
 
   const navigate = useNavigate();
+
+
+  const logOut = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    localStorage.removeItem("isLogged");
+    localStorage.removeItem("name");
+    navigate("/");
+    window.location.reload();
+  }
 
   let { id } = useParams();
 
@@ -57,8 +68,7 @@ const EventPage = (props) => {
     if (Categories[key] == event.category) category = key;
   }
 
-  const isLogged = localStorage.getItem("isLogged");
-
+  
   const goRegister = () => {
     navigate("/register");
   };
@@ -121,7 +131,9 @@ const EventPage = (props) => {
             >
               <img src="/Asset 1.png" alt="sdagasdgasd" height={50} width={50}></img>
             </Typography>           
-
+            {(isLogged == "true") &&<Button color="inherit" onClick={logOut}>
+              Log Out
+              </Button>}
             <Button color="inherit" onClick={handleClick}>
               Inapoi
             </Button>

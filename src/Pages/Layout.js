@@ -12,14 +12,23 @@ import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import Auth from "../Services/auth";
-
 // Components
 import Event from "../Components/Event";
 import usePagination from "../Components/Pagination";
 
 const Layout = () => {
   let signedIn = false;
+
   const navigate = useNavigate();
+
+  const logOut = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    localStorage.removeItem("isLogged");
+    localStorage.removeItem("name");
+    navigate("/");
+    window.location.reload();
+  }
 
   const handleClick = () => {
     navigate("/create-event");
@@ -89,6 +98,9 @@ const Layout = () => {
             >
                <img src="/Asset 1.png" alt="sdagasdgasd" height={50} width={50}></img>
             </Typography>
+            {(isLogged == "true") &&<Button color="inherit" onClick={logOut}>
+              Log Out
+              </Button>}
             {(isLogged == "false" || isLogged == null) && (
               <div>
                 {" "}
