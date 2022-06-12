@@ -87,7 +87,7 @@ const Layout = () => {
               component="div"
               sx={{ flexGrow: 1 }}
             >
-              LOGO
+               <img src="/Asset 1.png" alt="sdagasdgasd" height={50} width={50}></img>
             </Typography>
             {(isLogged == "false" || isLogged == null) && (
               <div>
