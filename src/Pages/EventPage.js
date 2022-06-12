@@ -142,8 +142,8 @@ const EventPage = (props) => {
         <Card>
           <CardMedia
             component="img"
-            height="140"
-            image={event.banner}
+            height="250"
+            image={event.banner || "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"}
             alt="no banner"
           />
           <CardContent alignItems="center">
